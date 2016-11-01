@@ -6,18 +6,24 @@ function displayGiphyInfo(){
   console.log("yep, this is working");
   var cartoons = $(this).attr('data-name');
   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + cartoons + "&api_key=dc6zaTOxFJmzC&limit=10";
-
+  console.log(queryURL)
   //will try and call up the AJAX for the specific cartoon requested:
   $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
-
+    console.log(response);
+    JSON.stringify(response);
+    for (var i = 0; i < results.length; i++) {
     //need to create a generic div to hold my cartoon giphies or newly added requested
     var cartoonDiv = $('<div class="cartoon">');
 
     //since it was required for assignment, I need to request the rating data-name
-    var rating = response.Rated;
-
-    //Now I need to create an element to have the rating element displayed:
+    var rating = results[i].rating;
+    //Now I need to create an element to have the rating element and images displayed:
     var pRating = $('<p>').text( "Rating: " + rating);
+
+    var cartoonImage = $('<img>');
+    cartoonImage.attr('src', results[i].images.fixed_height.url);
+    cartoonDiv.append(p)
+    cartoonDiv.append(cartoonImage)
     cartoonDiv.append(pRating);
 
     //now I need to append the giphy:
