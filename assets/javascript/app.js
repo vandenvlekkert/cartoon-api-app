@@ -1,3 +1,5 @@
+var starters = ["Grimm Adventures of Billy and Mandy", "Peter Pan", "Brave Disney", "Shrek", "Howls Moving Castle"];
+
 //Initial array of my cartoon gifs
 var cartoons = ['Grimm Adventures of Billy and Mandy','Peter Pan','Brave Disney', 'Shrek','Howls Moving Castle'];
 
@@ -14,20 +16,25 @@ function displayGiphy(){
 
     //JSON.stringify(response);
     var results = response.data;
-    console.log("test line 40");
+    console.log("test line 19");
 
     for (var i = 0; i < results.length; i++) {
       console.log("for loop");
     //need to create a generic div to hold my cartoon giphies or newly added requested
     var cartoonsDiv = $('<div class="cartoons">');
-    console.log("I made here to 43");
+    console.log("I made here to 25");
     //since it was required for assignment, I need to request the rating data-name
     var rating = results[i].rating;
     var p = $('<p>').text("Rating: " + rating);
     //Now I need to create an element to have the rating element and images displayed:
     var cartoonsImage = $('<img>');
-    console.log("made it to line 52");
-    cartoonsImage.attr('src', results[i].images.fixed_height.url);
+    cartoonsImage.attr('data-state', 'still');
+    console.log("made it to line 32");
+
+    cartoonsImage.attr('src', results[i].images.fixed_height_still.url);
+    cartoonsImage.attr('data-still', results [i].images.fixed_height_still.url);
+    cartoonsImage.attr('data-animate', results [i].images.fixed_height.url);
+
     cartoonsDiv.append(p)
     cartoonsDiv.append(cartoonsImage)
     //cartoonsDiv.append(pRating);
@@ -86,3 +93,17 @@ $(document).on('click', '.cartoons', displayGiphy);
 addButtons();
 
 //trying to establish the click function so that it would make the gif static and animated.
+$(document).on('click', '.images', function() {
+  var state = $(this).attr('data-state');
+  var animatedImgUrl = $(this).attr('data-animate');
+  var stillImgUrl = $(this).attr('data-still');
+  console.log(state);
+  if (state === 'still') {
+    $(this).attr('src', animatedImgUrl);
+    $(this).attr('data-state', 'animate');
+  }
+  else if (state === 'animate') {
+    $(this).attr('src', stillImgUrl);
+    $(this).attr('data-state', 'still' );
+  }
+});
