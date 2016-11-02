@@ -6,7 +6,7 @@ function displayGiphy(){
   console.log("yep, this is working");
 
   var gifs = $(this).attr('data-name');
-  var gifsURL = "http://api.giphy.com/v1/gifs/search?q=" + gifs + "&api_key=dc6zaTOxFJmzC&limit=10";
+  var gifsURL = "https://api.giphy.com/v1/gifs/search?q=" + gifs + "&api_key=dc6zaTOxFJmzC&limit=10";
 
   //will try and call up the AJAX for the specific cartoon requested:
   $.ajax({url: gifsURL, method: 'GET'}).done(function(response) {
@@ -86,4 +86,3 @@ $(document).on('click', '.cartoons', displayGiphy);
 addButtons();
 
 //trying to establish the click function so that it would make the gif static and animated.
- 
