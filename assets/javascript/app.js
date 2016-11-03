@@ -1,5 +1,3 @@
-var starters = ["Grimm Adventures of Billy and Mandy", "Peter Pan", "Brave Disney", "Shrek", "Howls Moving Castle"];
-
 //Initial array of my cartoon gifs
 var cartoons = ['Grimm Adventures of Billy and Mandy','Peter Pan','Brave Disney', 'Shrek','Howls Moving Castle'];
 
@@ -16,24 +14,26 @@ function displayGiphy(){
 
     //JSON.stringify(response);
     var results = response.data;
-    console.log("test line 19");
+    console.log("test line 17");
 
     for (var i = 0; i < results.length; i++) {
       console.log("for loop");
     //need to create a generic div to hold my cartoon giphies or newly added requested
-    var cartoonsDiv = $('<div class="cartoons">');
-    console.log("I made here to 25");
+    var cartoonsDiv = $('<div class="cartoons-Image">');
+    console.log("I made here to 23");
     //since it was required for assignment, I need to request the rating data-name
     var rating = results[i].rating;
     var p = $('<p>').text("Rating: " + rating);
     //Now I need to create an element to have the rating element and images displayed:
     var cartoonsImage = $('<img>');
     cartoonsImage.attr('data-state', 'still');
-    console.log("made it to line 32");
+    console.log("made it to line 30");
 
     cartoonsImage.attr('src', results[i].images.fixed_height_still.url);
-    cartoonsImage.attr('data-still', results [i].images.fixed_height_still.url);
-    cartoonsImage.attr('data-animate', results [i].images.fixed_height.url);
+    cartoonsImage.attr('data-still', results[i].images.fixed_height_still.url);
+    cartoonsImage.attr('data-animate', results[i].images.fixed_height.url);
+
+    cartoonsImage.addClass('images');
 
     cartoonsDiv.append(p)
     cartoonsDiv.append(cartoonsImage)
@@ -41,7 +41,7 @@ function displayGiphy(){
 
     //now I need to append the giphy:
     //cartoonsDiv.append(cartoons);
-    console.log("i made it to 56");
+    console.log("I made it to 42");
     /* this next function request is suppose to place the entire collection of cartoons above the previously
     requested cartoons.*/
     $('#cartoonsView').prepend(cartoonsDiv);
@@ -80,30 +80,33 @@ $('#addCartoons').on('click', function() {
   //this next step is suppose to take request from the textbox and add it to my array:
   cartoons.push(cartoon);
   addButtons();
-  console.log(addButtons)
+  console.log(addButtons);
   //this line of coding is suppose to process that in case the user does not press the button, "enter" will work as well.
 
   return false;
-})
+});
 
 //this generic function is used for displaying the giphyinfo
 $(document).on('click', '.cartoons', displayGiphy);
 
 //lastly... this last code calls the addButtons to function:
 addButtons();
-
+console.log("made it to 94")
 //trying to establish the click function so that it would make the gif static and animated.
 $(document).on('click', '.images', function() {
   var state = $(this).attr('data-state');
   var animatedImgUrl = $(this).attr('data-animate');
   var stillImgUrl = $(this).attr('data-still');
+
   console.log(state);
   if (state === 'still') {
     $(this).attr('src', animatedImgUrl);
     $(this).attr('data-state', 'animate');
+    console.log("made it 104");
   }
   else if (state === 'animate') {
     $(this).attr('src', stillImgUrl);
     $(this).attr('data-state', 'still' );
+    console.log("made it to 109");
   }
 });
